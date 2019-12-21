@@ -17,9 +17,7 @@ autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-
 Plug 'carmonw/elm-vim'
-
 Plug 'w0rp/ale'
 Plug 'cohama/lexima.vim'
 Plug 'SirVer/ultisnips'
@@ -38,7 +36,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 
 call plug#end()
 
-autocmd VimEnter * NERDTree | wincmd p
+" autocmd VimEnter * NERDTree | wincmd p
 
 colorscheme gruvbox
 set background=dark
@@ -46,6 +44,7 @@ set background=dark
 set hidden
 
 set number
+set relativenumber
 set termguicolors
 
 set mouse=a
@@ -63,6 +62,7 @@ let g:LanguageClient_serverCommands = {'elm': ['~/.config/coc/elm-language-serve
 let mapleader="\<space>"
 
 nnoremap <leader>; A;<esc>
+nnoremap <leader>s "_d<esc>
 nnoremap <leader>sv :source /Users/brunoandradd/.config/nvim/init.vim<cr>
 nnoremap <leader>v :vsplit<cr>
 nnoremap <leader>nf :NERDTreeFind<cr>
@@ -74,7 +74,13 @@ nnoremap <leader>b :Buffers<cr>
 nnoremap <c-p> :Files<cr>
 nnoremap <c-f> :Ag<space>
 nnoremap <c-d> :%s/
+vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
+nnoremap mm ^i#<space><Esc>
 
 let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetsDir = '~/.config/nvim/UltiSnips'
+let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
+let g:UltiSnipsExpandTrigger =      '<tab>'
+let g:UltiSnipsListSnippets  =      '<c-tab>'
+let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
