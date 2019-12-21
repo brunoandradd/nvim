@@ -1,4 +1,5 @@
 call plug#begin()
+Plug 'tpope/vim-commentary'
 Plug 'morhetz/gruvbox'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'sheerun/vim-polyglot'
@@ -75,7 +76,12 @@ nnoremap <c-p> :Files<cr>
 nnoremap <c-f> :Ag<space>
 nnoremap <c-d> :%s/
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
-nnoremap mm ^i#<space><Esc>
+
+" block navigate keys in normal mode
+noremap <Up> <Nop>
+noremap <Down> <Nop>
+noremap <Left> <Nop>
+noremap <Right> <Nop>
 
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir = "~/.config/nvim/UltiSnips"
