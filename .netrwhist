@@ -1,3 +1,9 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhistcnt =1
+let g:netrw_dirhistcnt =7
+let g:netrw_dirhist_7='/Users/brunoandradd/studies/elixir'
+let g:netrw_dirhist_6='/Users/brunoandradd/studies/elixir/exercism'
+let g:netrw_dirhist_5='/Users/brunoandradd/studies/elixir'
+let g:netrw_dirhist_4='/Users/brunoandradd/studies/elixir/hello_word'
+let g:netrw_dirhist_3='/Users/brunoandradd/studies/elixir/hello_word/lib'
+let g:netrw_dirhist_2='/Users/brunoandradd/studies/elixir/hello_word'
 let g:netrw_dirhist_1='/Users/brunoandradd/griffti/apps/srm_admin'

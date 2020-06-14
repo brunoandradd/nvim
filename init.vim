@@ -3,6 +3,7 @@ let g:elm_setup_keybindings = 0
 
 call plug#begin()
 Plug 'elixir-editors/vim-elixir'
+Plug 'voldikss/vim-floaterm'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
@@ -28,6 +29,8 @@ Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
+Plug 'liuchengxu/vim-which-key'
+Plug 'gregsexton/Atom'
 
 
 call plug#end()
@@ -54,6 +57,7 @@ set ignorecase
 let tabulousLabelNameTruncate = 1 
 let g:rspec_runner = "os_x_iterm2"
 let g:rspec_command = "Dispatch rspec {spec}"
+let g:floaterm_autoclose = 2
 
 filetype plugin indent on
 syntax on
@@ -63,12 +67,12 @@ autocmd FocusGained * checktime
 
 let mapleader="\<space>"
 
-" " Use `[g` and `]g` to navigate diagnostics
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
 
 " coc Remap keys
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+
+" Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -81,8 +85,10 @@ nnoremap <leader>s "_d<esc>
 nnoremap <leader>sv :source /Users/brunoandradd/.config/nvim/init.vim<cr>
 nnoremap <leader>ev :vsplit /Users/brunoandradd/.config/nvim/init.vim<cr>
 nnoremap <leader>v :vsplit<cr>
-nnoremap <leader>nf :NERDTreeFind<cr>
-nnoremap <leader>nc :NERDTreeClose<cr>
+" nnoremap <leader>nf :NERDTreeFind<cr>
+" nnoremap <leader>nc :NERDTreeClose<cr>
+noremap  <leader>e :NERDTreeFind<cr>
+nnoremap <leader>ec :NERDTreeClose<cr>
 nnoremap <leader>nu :NERDTreeFocus<cr>
 nnoremap <leader>h :split<cr>
 nnoremap <leader>q :quit<cr>
@@ -92,17 +98,22 @@ nnoremap <c-f> :Ag<space>
 nnoremap <c-d> :%s/
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
 
+"maps floatterm
+nnoremap <leader>t :FloatermNew<cr>
+nnoremap <leader>tt :FloatermToggle<cr>
+nnoremap <leader>th :FloatermHide<cr>
+
+
 " config to rails
-noremap <c-m> :Emigration<cr>
+noremap <leader>lm :Emigration<cr>
 noremap <leader>db :tabnew config/database.yml<cr>
 noremap <leader>ge :tabnew Gemfile<cr>
 
 " config to tabs
 noremap <c-t> :tabnew<cr>
-noremap <leader>ct :tabclose<cr>
+noremap <leader>tc :tabclose<cr>
 noremap <leader>] :tabnext<cr>
 noremap <leader>[ :tabprevious<cr>
-noremap <esc> <Nop>
 
 
 " Default highlighting (see help :highlight and help :highlight-link)
@@ -113,12 +124,6 @@ highlight link multiple_cursors_visual Visual
 nnoremap <c-s> :w<cr>
 
 noremap <c-o> :CocList outline methods<cr>
-
-" RSpec.vim mappings
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>l :call RunLastSpec()<CR>
-map <Leader>a :call RunAllSpecs()<CR>
 
 " block navigate keys in normal mode
 noremap <Up> <Nop>
