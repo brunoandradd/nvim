@@ -31,11 +31,14 @@ Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'gregsexton/Atom'
+Plug 'clojure-vim/acid.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sainnhe/sonokai'
 
 
 call plug#end()
 
-colorscheme gruvbox
+colorscheme sonokai
+let g:sonokai_style = 'shusia'
 set background=dark
 
 " Some servers have issues with backup files, see #649
@@ -58,6 +61,8 @@ let tabulousLabelNameTruncate = 1
 let g:rspec_runner = "os_x_iterm2"
 let g:rspec_command = "Dispatch rspec {spec}"
 let g:floaterm_autoclose = 2
+let NERDTreeShowHidden=1
+
 
 filetype plugin indent on
 syntax on
@@ -71,6 +76,8 @@ let mapleader="\<space>"
 
 " coc Remap keys
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>ca :CocAction<cr>
 
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
@@ -85,8 +92,6 @@ nnoremap <leader>s "_d<esc>
 nnoremap <leader>sv :source /Users/brunoandradd/.config/nvim/init.vim<cr>
 nnoremap <leader>ev :vsplit /Users/brunoandradd/.config/nvim/init.vim<cr>
 nnoremap <leader>v :vsplit<cr>
-" nnoremap <leader>nf :NERDTreeFind<cr>
-" nnoremap <leader>nc :NERDTreeClose<cr>
 noremap  <leader>e :NERDTreeFind<cr>
 nnoremap <leader>ec :NERDTreeClose<cr>
 nnoremap <leader>nu :NERDTreeFocus<cr>
@@ -102,7 +107,6 @@ vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
 nnoremap <leader>t :FloatermNew<cr>
 nnoremap <leader>tt :FloatermToggle<cr>
 nnoremap <leader>th :FloatermHide<cr>
-
 
 " config to rails
 noremap <leader>lm :Emigration<cr>
