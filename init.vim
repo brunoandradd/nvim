@@ -3,7 +3,6 @@ let g:elm_setup_keybindings = 0
 
 call plug#begin()
 Plug 'elixir-editors/vim-elixir'
-Plug 'voldikss/vim-floaterm'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
@@ -17,25 +16,47 @@ Plug 'thoughtbot/vim-rspec'
 Plug 'benmills/vimux'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'andys8/vim-elm-syntax'
-
-autocmd BufEnter * call ncm2#enable_for_buffer()
-set completeopt=noinsert,menuone,noselect
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'w0rp/ale'
 Plug 'cohama/lexima.vim'
 Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
+" Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'gregsexton/Atom'
-Plug 'clojure-vim/acid.nvim', { 'do': ':UpdateRemotePlugins' }
+" clojure plugins 
+Plug 'Olical/conjure', {'tag': 'v4.4.0'}
+Plug 'clojure-vim/vim-jack-in'
+Plug 'radenling/vim-dispatch-neovim'
+Plug 'ncm2/float-preview.nvim'
+" colore schemes 
 Plug 'sainnhe/sonokai'
+Plug 'liuchengxu/vim-clap'
+Plug 'luochen1990/rainbow'
 
 
 call plug#end()
+
+autocmd BufEnter * call ncm2#enable_for_buffer()
+set completeopt=noinsert,menuone,noselect
+
+let g:rainbow_active = 1 
+
+ " Configuration to claps 
+let g:clap_provider_grep_delay = 50
+let g:clap_provider_grep_opts = '-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
+
+
+let g:float_preview#docked = 0
+let g:float_preview#max_width = 80
+let g:float_preview#max_height = 40
+
+let g:ale_linters = {
+      \ 'clojure': ['clj-kondo']
+      \}
 
 colorscheme sonokai
 let g:sonokai_style = 'shusia'
@@ -60,7 +81,6 @@ set ignorecase
 let tabulousLabelNameTruncate = 1 
 let g:rspec_runner = "os_x_iterm2"
 let g:rspec_command = "Dispatch rspec {spec}"
-let g:floaterm_autoclose = 2
 let NERDTreeShowHidden=1
 
 
@@ -71,8 +91,10 @@ set autoread
 autocmd FocusGained * checktime
 
 let mapleader="\<space>"
+let maplocalleader=","
 
-
+" config to clojure
+noremap <leader>cr  :ConjureConnect<cr>
 
 " coc Remap keys
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
@@ -102,11 +124,6 @@ nnoremap <c-p> :Files<cr>
 nnoremap <c-f> :Ag<space>
 nnoremap <c-d> :%s/
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
-
-"maps floatterm
-nnoremap <leader>t :FloatermNew<cr>
-nnoremap <leader>tt :FloatermToggle<cr>
-nnoremap <leader>th :FloatermHide<cr>
 
 " config to rails
 noremap <leader>lm :Emigration<cr>
