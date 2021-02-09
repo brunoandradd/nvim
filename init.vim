@@ -111,8 +111,8 @@ nnoremap <leader>; A;<esc>
 nnoremap <leader>== :set cmdheight=4<cr>
 nnoremap <leader>-- :set cmdheight=1<cr>
 nnoremap <leader>s "_d<esc>
-nnoremap <leader>sv :source /Users/brunoandradd/.config/nvim/init.vim<cr>
-nnoremap <leader>ev :vsplit /Users/brunoandradd/.config/nvim/init.vim<cr>
+nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
+nnoremap <leader>ev :vsplit ~//.config/nvim/init.vim<cr>
 nnoremap <leader>v :vsplit<cr>
 noremap  <leader>e :NERDTreeFind<cr>
 nnoremap <leader>ec :NERDTreeClose<cr>
