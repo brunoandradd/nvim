@@ -30,6 +30,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/lightline.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'gregsexton/Atom'
@@ -39,11 +40,6 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'liquidz/vim-iced-asyncomplete', {'for': 'clojure'}
 Plug 'liquidz/vim-iced', {'for': 'clojure'}
 Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
-
-" Plug 'Olical/conjure', {'tag': 'v4.4.0'}
-" Plug 'clojure-vim/vim-jack-in'
-" Plug 'radenling/vim-dispatch-neovim'
-" Plug 'ncm2/float-preview.nvim'
 
 " colore schemes 
 Plug 'sainnhe/sonokai'
@@ -97,6 +93,18 @@ let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffse
 let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
 let $FZF_DEFAULT_COMMAND="rg --files --hidden"
 
+" config tree
+
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Toggle
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+
+let g:rainbow_active = 1 
 
 " Customize fzf colors to match your color scheme
 let g:fzf_colors =
@@ -186,7 +194,6 @@ set autoread
 autocmd FocusGained * checktime
 
 
-
 " coc Remap keys
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 nmap <leader>rn <Plug>(coc-rename)
@@ -202,11 +209,10 @@ nnoremap <leader>; A;<esc>
 nnoremap <leader>== :set cmdheight=4<cr>
 nnoremap <leader>-- :set cmdheight=1<cr>
 nnoremap <leader>s "_d<esc>
-nnoremap <leader>sv :source /Users/brunoandradd/.config/nvim/init.vim<cr>
-nnoremap <leader>ev :vsplit /Users/brunoandradd/.config/nvim/init.vim<cr>
+nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
+nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<cr>
 nnoremap <leader>v :vsplit<cr>
 noremap  <leader>e :NERDTreeFind<cr>
-nnoremap <leader>ec :NERDTreeClose<cr>
 nnoremap <leader>nu :NERDTreeFocus<cr>
 nnoremap <leader>h :split<cr>
 nnoremap <leader>q :quit<cr>
