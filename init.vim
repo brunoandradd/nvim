@@ -24,6 +24,7 @@ Plug 'SirVer/ultisnips'
 " Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdtree'
+Plug 'ryanoasis/vim-devicons'
 Plug 'itchyny/lightline.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'gregsexton/Atom'
@@ -42,6 +43,17 @@ call plug#end()
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
+
+" config tree
+
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeIgnore = []
+let g:NERDTreeStatusline = ''
+" Automaticaly close nvim if NERDTree is only thing left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Toggle
+nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 
 let g:rainbow_active = 1 
 
@@ -112,10 +124,9 @@ nnoremap <leader>== :set cmdheight=4<cr>
 nnoremap <leader>-- :set cmdheight=1<cr>
 nnoremap <leader>s "_d<esc>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
-nnoremap <leader>ev :vsplit ~//.config/nvim/init.vim<cr>
+nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<cr>
 nnoremap <leader>v :vsplit<cr>
 noremap  <leader>e :NERDTreeFind<cr>
-nnoremap <leader>ec :NERDTreeClose<cr>
 nnoremap <leader>nu :NERDTreeFocus<cr>
 nnoremap <leader>h :split<cr>
 nnoremap <leader>q :quit<cr>
