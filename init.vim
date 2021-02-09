@@ -1,15 +1,21 @@
 autocmd FileType elm setlocal softtabstop=4 shiftwidth=4 expandtab
-let g:elm_setup_keybindings = 0
+" let g:elm_setup_keybindings = 0
 
 call plug#begin()
+Plug 'elmcast/elm-vim'
+Plug 'mattn/webapi-vim'
+Plug 'mattn/vim-gist'
+Plug 'skywind3000/asynctasks.vim'
+Plug 'skywind3000/asyncrun.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'airblade/vim-rooter'
 Plug 'elixir-editors/vim-elixir'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
 Plug 'morhetz/gruvbox'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'thoughtbot/vim-rspec'
@@ -21,20 +27,26 @@ Plug 'ncm2/ncm2-path'
 Plug 'w0rp/ale'
 Plug 'cohama/lexima.vim'
 Plug 'SirVer/ultisnips'
-" Plug 'honza/vim-snippets'
+Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'scrooloose/nerdtree'
 Plug 'itchyny/lightline.vim'
 Plug 'liuchengxu/vim-which-key'
 Plug 'gregsexton/Atom'
 " clojure plugins 
-Plug 'Olical/conjure', {'tag': 'v4.4.0'}
-Plug 'clojure-vim/vim-jack-in'
-Plug 'radenling/vim-dispatch-neovim'
-Plug 'ncm2/float-preview.nvim'
+Plug 'guns/vim-sexp',    {'for': 'clojure'}
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'liquidz/vim-iced-asyncomplete', {'for': 'clojure'}
+Plug 'liquidz/vim-iced', {'for': 'clojure'}
+Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
+
+" Plug 'Olical/conjure', {'tag': 'v4.4.0'}
+" Plug 'clojure-vim/vim-jack-in'
+" Plug 'radenling/vim-dispatch-neovim'
+" Plug 'ncm2/float-preview.nvim'
+
 " colore schemes 
 Plug 'sainnhe/sonokai'
-Plug 'liuchengxu/vim-clap'
 Plug 'luochen1990/rainbow'
 
 
@@ -42,18 +54,100 @@ call plug#end()
 
 autocmd BufEnter * call ncm2#enable_for_buffer()
 set completeopt=noinsert,menuone,noselect
+let mapleader="\<space>"
+let maplocalleader=","
+
+" config asynctaks
+let g:asyncrun_open = 0
+noremap <localleader>tr :AsyncRun open "https://trello.com/b/JKXRD0Ka/desenvolvimento"<cr>
+noremap <localleader>cs :AsyncRun open "https://app.codeship.com/home"<cr>
+noremap <localleader>he :AsyncRun open "https://dashboard.heroku.com/apps"<cr>
+noremap <localleader>gh :AsyncRun open "https://github.com/"<cr>
+noremap <localleader>cc :AsyncRun open "https://codeclimate.com/"<cr>
+noremap <localleader>bc :AsyncRun open "https://3.basecamp.com/4288753/"<cr>
+
+" config fzf 
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Enable per-command history.
+" CTRL-N and CTRL-P will be automatically bound to next-history and
+" previous-history instead of down and up. If you don't like the change,
+" explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
+" keys to fzf work
+map <leader>b :Buffers<CR>
+nnoremap <leader>g :Rg<CR>
+nnoremap <leader>t :Tags<CR>
+nnoremap <leader>m :Marks<CR>
+nnoremap <leader>l :Locate ""<CR>
+nnoremap <leader>b :Buffers<cr>
+nnoremap <c-p> :Files<cr>
+nnoremap <c-f> :Ag<space>
+
+
+let g:fzf_tags_command = 'ctags -R'
+" Border color
+let g:fzf_layout = {'up':'~90%', 'window': { 'width': 0.8, 'height': 0.8,'yoffset':0.5,'xoffset': 0.5, 'highlight': 'Todo', 'border': 'sharp' } }
+
+let $FZF_DEFAULT_OPTS = '--layout=reverse --info=inline'
+let $FZF_DEFAULT_COMMAND="rg --files --hidden"
+
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+"Get Files
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview({'options': ['--layout=reverse', '--info=inline']}), <bang>0)
+
+
+" Get text in files with Rg
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+" Ripgrep advanced
+function! RipgrepFzf(query, fullscreen)
+  let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case %s || true'
+  let initial_command = printf(command_fmt, shellescape(a:query))
+  let reload_command = printf(command_fmt, '{q}')
+  let spec = {'options': ['--phony', '--query', a:query, '--bind', 'change:reload:'.reload_command]}
+  call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview(spec), a:fullscreen)
+endfunction
+
+command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+" Git grep
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({'dir': systemlist('git rev-parse --show-toplevel')[0]}), <bang>0)
+
+
+
+" config plugin iced
+let g:iced_enable_default_key_mappings = v:true
 
 let g:rainbow_active = 1 
-
- " Configuration to claps 
-let g:clap_provider_grep_delay = 50
-let g:clap_provider_grep_opts = '-H --no-heading --vimgrep --smart-case --hidden -g "!.git/"'
-
-
-let g:float_preview#docked = 0
-let g:float_preview#max_width = 80
-let g:float_preview#max_height = 40
-
 let g:ale_linters = {
       \ 'clojure': ['clj-kondo']
       \}
@@ -69,6 +163,7 @@ set hidden
 set number
 set relativenumber
 set termguicolors
+" set setguifont=Monospace\ 20
 set mouse=a
 set inccommand=split
 set clipboard=unnamed
@@ -90,11 +185,7 @@ syntax on
 set autoread
 autocmd FocusGained * checktime
 
-let mapleader="\<space>"
-let maplocalleader=","
 
-" config to clojure
-noremap <leader>cr  :ConjureConnect<cr>
 
 " coc Remap keys
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
@@ -119,9 +210,6 @@ nnoremap <leader>ec :NERDTreeClose<cr>
 nnoremap <leader>nu :NERDTreeFocus<cr>
 nnoremap <leader>h :split<cr>
 nnoremap <leader>q :quit<cr>
-nnoremap <leader>b :Buffers<cr>
-nnoremap <c-p> :Files<cr>
-nnoremap <c-f> :Ag<space>
 nnoremap <c-d> :%s/
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
 
@@ -142,7 +230,8 @@ highlight multiple_cursors_cursor term=reverse cterm=reverse gui=reverse
 highlight link multiple_cursors_visual Visual
 
 " save files
-nnoremap <c-s> :w<cr>
+nmap <c-s> :w<cr>
+imap <c-s> <Esc>:w<cr>
 
 noremap <c-o> :CocList outline methods<cr>
 
