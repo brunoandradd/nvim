@@ -15,7 +15,6 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-rails'
 Plug 'tpope/vim-surround'
-Plug 'morhetz/gruvbox'
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'thoughtbot/vim-rspec'
@@ -41,8 +40,9 @@ Plug 'liquidz/vim-iced', {'for': 'clojure'}
 Plug 'liquidz/vim-iced-coc-source', {'for': 'clojure'}
 
 " colore schemes 
-Plug 'sainnhe/sonokai'
+" Plug 'sainnhe/sonokai'
 Plug 'luochen1990/rainbow'
+Plug 'morhetz/gruvbox'
 
 
 call plug#end()
@@ -159,8 +159,7 @@ let g:ale_linters = {
       \ 'clojure': ['clj-kondo']
       \}
 
-colorscheme sonokai
-let g:sonokai_style = 'shusia'
+colorscheme gruvbox
 set background=dark
 
 " Some servers have issues with backup files, see #649
@@ -179,6 +178,8 @@ set updatetime=300
 set expandtab
 set shiftwidth=2
 set ignorecase
+set encoding=utf-8
+set fileencoding=utf-8
 
 let tabulousLabelNameTruncate = 1 
 let g:rspec_runner = "os_x_iterm2"
@@ -202,26 +203,29 @@ nmap <leader>ca :CocAction<cr>
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
 
 nnoremap <leader>; A;<esc>
 nnoremap <leader>== :set cmdheight=4<cr>
 nnoremap <leader>-- :set cmdheight=1<cr>
 nnoremap <leader>s "_d<esc>
 nnoremap <leader>sv :source ~/.config/nvim/init.vim<cr>
-nnoremap <leader>ev :vsplit ~/.config/nvim/init.vim<cr>
+nnoremap <leader>ev :tabnew ~/.config/nvim/init.vim<cr>
 nnoremap <leader>v :vsplit<cr>
 noremap  <leader>e :NERDTreeFind<cr>
 nnoremap <leader>nu :NERDTreeFocus<cr>
 nnoremap <leader>h :split<cr>
 nnoremap <leader>q :quit<cr>
+nnoremap <leader>d :bdel<cr>
 nnoremap <c-d> :%s/
 vnoremap qq <Esc>`>a'<Esc>`<i'<Esc>
 
 " config to rails
 noremap <leader>lm :Emigration<cr>
 noremap <leader>db :tabnew config/database.yml<cr>
+noremap <leader>ro :tabnew config/routes.rb<cr>
 noremap <leader>ge :tabnew Gemfile<cr>
+noremap <leader>ga :A<cr>
+noremap <leader>rt :Eunittest<cr>
 
 " config to tabs
 noremap <c-t> :tabnew<cr>
